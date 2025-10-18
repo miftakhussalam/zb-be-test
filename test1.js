@@ -64,6 +64,21 @@ const sessions = [
 
 function result(sessions) {
   // Your Code Here
+  return Object.values(
+    sessions.reduce((acc, { session_id, time, student, class: cls }) => {
+      if (!acc[session_id])
+        acc[session_id] = { session_id, time, classes: {} };
+
+      if (!acc[session_id].classes[cls.class_id])
+        acc[session_id].classes[cls.class_id] = { ...cls, students: [] };
+
+      acc[session_id].classes[cls.class_id].students.push(student);
+      return acc;
+    }, {})
+  ).map(session => ({
+    ...session,
+    classes: Object.values(session.classes),
+  }));
 }
 
 console.log(result(sessions));

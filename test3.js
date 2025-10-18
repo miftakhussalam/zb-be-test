@@ -15,6 +15,15 @@ const data = [
 
 function result(data) {
   // Your Code Here
+  return data.map(session => {
+    const newSession = { ...session };
+    Object.keys(newSession).forEach(key => {
+      if (newSession[key] === null || newSession[key] === undefined) {
+        delete newSession[key];
+      }
+    });
+    return newSession;
+  });
 }
 
 console.log(result(data));
